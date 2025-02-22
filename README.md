@@ -10,7 +10,10 @@ Munyaradzi Goredema _ Git Mastery
 A python file to calculate and analyze the trends of bike-share systems data across 3 major cities. The python file provides an interactive experience to analyze the data and provide output statistics.
 
 ### Files used
-Include the files used
+the files used for this analysis are listed below:
+washington.csv
+chicago.csv
+new_york_city.csv
 
 ### Credits
 It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
