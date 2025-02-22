@@ -19,21 +19,21 @@ months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 #define a function to get user input
 def user_input():
     print("Hello and welcome! Let's explore some selected US cities bikeshare data together!" )
-    
+
     while True:
         city  = input('Enter the city from shown list (Chicago, New York City, Washington): ').lower()
         if city in CITY_DATA:
             break
         else:
             print('Invalid city has been selected. Check the displayed list, and enter a valid city.')
-    
+
     while True:
         month = input('Enter a valid month from the shown list(all, January, February, ..., June): ').lower()
         if month in months:
             break
         else:
             print('Invalid month has been selected. Check the displayed list, and enter a valid month.')
-    
+
     while True:
         day = input('Enter the day of the week from the shown list(all, Monday, Tuesday,..., Sunday): ').lower()
         if day in weekdays:
@@ -50,7 +50,7 @@ def load_data(city, month, day):
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['Month'] = df['Start Time'].dt.month
     df['Day of Week'] = df['Start Time'].dt.day_name().str.title()
-    
+
     if month != 'all':
         df = df[df['Month'] == months.index(month)]
     if day != 'all':
@@ -61,7 +61,7 @@ def load_data(city, month, day):
     print('\n')
     print(df.head(n=5).to_string(index=False))
     print('-'*80)
-    
+
 #define a function to calculate and display basic time statistics
 def basic_time_statistics(df):
     print('\nCalculating the most frequent times of travel...\n')
@@ -103,7 +103,7 @@ def basic_time_statistics(df):
     plt.show()
     print('\nThis took %s seconds.' % (time.time() - start_time))
     print('-'*80)
-          
+
 #define a function to calculate the most popular start stations and most popular trip
 def station_statistics(df):
     print('\nCalculating the most popular stations and trips...\n')
@@ -133,7 +133,7 @@ def trip_duration_statistics(df):
     df['Trip Duration'].hist(grid=True, bins=10, backend=None, legend=True)
     plt.show()
     print('\n This took %s seconds.' % (time.time()-start_time))
-    
+
 def user_category_statistics(df):
     print('\nCalculating the user type and category statistics...\n')
     start_time = time.time()
@@ -155,7 +155,7 @@ def user_category_statistics(df):
         print('\n')
     else:
           print("\nGender information is not available in the dataset.")
-    
+
     if 'Birth Year' in df.columns:
         current_year = pd.to_datetime('today').year
         df['Age'] = current_year - df['Birth Year']
@@ -168,7 +168,7 @@ def user_category_statistics(df):
         user_group_statistics.columns = ['Total Trips', 'Total Duration (s)', 'Average Duration (s)']
         user_group_statistics['Total Duration (h)'] = user_group_statistics['Total Duration (s)'] / 3600
         user_group_statistics['Average Duration (h)'] = user_group_statistics['Average Duration (s)'] / 3600
-        
+
         print('\nBelow, is a breakdown of users into age categories:')
         print(user_group_statistics[['Total Trips', 'Total Duration (s)', 'Total Duration (h)']])
         print('\n', '-' * 80)
@@ -176,7 +176,7 @@ def user_category_statistics(df):
         print('\n')
         df['Age'].hist(bins=8, legend =True)
         plt.show()
-    
+
     print('\nThis took %s seconds.' % (time.time() - start_time))
     print('-' * 80)
 
@@ -188,7 +188,7 @@ def show_raw_data(df):
           show_data_input = input('\nWould you like to see 5 lines of raw data? Enter yes or no.\nKindly note, any other answer besides yes or no will default to a no!\n')
           if show_data_input.lower() != 'yes':
               break
-          
+
           else:
               data_subset = df.iloc[start:end]
               print(data_subset)
@@ -197,25 +197,24 @@ def show_raw_data(df):
           if start>= len(df):
               print('No more raw data to display')
               break
-          
+
 #defining the main function that will call the other functions for input and data display
 def main():
     while True:
           city, month, day = user_input()
           df = load_data(city, month, day)
-          
+
           basic_time_statistics(df)
           station_statistics(df)
           trip_duration_statistics(df)
           user_category_statistics(df)
-          
+
           show_raw_data(df)
-          
-          restart = input('\nWould you like to restart with a different selection? Enter yes or no. \nKindly note any other answer will default to no!\n')
-          
+
+          restart = input('\nWould you like to restart with a different selection? Enter yes or no. \nKindly note any other apart from the prescribed answers will default to no! \nThe answer required is case sensitive\n')
+
           if restart.lower() !=  'yes':
               break
-          
+
 if __name__ == "__main__":
     main()
-
