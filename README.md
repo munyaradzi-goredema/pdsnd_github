@@ -7,7 +7,7 @@
 Munyaradzi Goredema _ Git Mastery
 
 ### Description
-Describe what your project is about and what it does
+A python file to calculate and analyze the trends of bike-share systems data across 3 major cities. The python file provides an interactive experience to analyze the data and provide output statistics.
 
 ### Files used
 Include the files used
