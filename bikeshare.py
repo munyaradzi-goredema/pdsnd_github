@@ -55,6 +55,13 @@ def load_data(city, month, day):
 
     return df #ensures that a preview is seen, and that the Dataframe is returned
 
+#define a function to plot histograms
+def plot_histogram(data, bins, title, xlabel, ylabel):
+plt.hist(data, bins=bins, edgecolor='black', alpha=0.7)
+plt.title(title)
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.grid(True)
 #define a function to calculate and display basic time statistics
 def basic_time_statistics(df):
     print('\nCalculating the most frequent times of travel...\n')
@@ -69,29 +76,12 @@ def basic_time_statistics(df):
     print('\n')
     #include histograms of basic statistics
     #Histogram of start times
-    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
-    axes[0].hist(df['Hour'], bins=range(0, 25, 2), edgecolor='black', alpha=0.7)
-    axes[0].set_title("Distribution of Start Times, (24 hr scale)")
-    axes[0].set_xlabel('Hour of Day')
-    axes[0].set_ylabel('Count')
-    axes[0].grid(True)
-    #histogram of weekdays
-    days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    axes[1].hist(df['Day of Week'], bins=np.arange(len(days_order) + 1) - 0.5, edgecolor='black', alpha=0.7)
-    axes[1].set_title('Distribution of weekdays')
-    axes[1].set_xticks(range(len(days_order)))
-    axes[1].set_xticklabels(days_order)
-    axes[1].set_xlabel('Weekday')
-    axes[1].set_ylabel('Count')
-    axes[1].grid(True)
-    #histogram of months
-    axes[2].hist(df['Month'], bins=np.arange(1, len(months)+2) -0.5, edgecolor='black', alpha=0.7)
-    axes[2].set_title('Distribution of Months')
-    axes[2].set_xticks(range(1, len(months)+1))
-    axes[2].set_xticklabels(months[1])
-    axes[2].set_xlabel('Month')
-    axes[2].set_ylabel('Count')
-    axes[2].grid(True)
+
+# Example usage in basic_time_statistics():
+    plot_histogram(df['Hour'], bins=range(0, 25, 2), title="Distribution of Start Times", xlabel="Hour of Day", ylabel="Count")
+    plot_histogram(df['Day of Week'], bins=np.arange(len(days_order) + 1) - 0.5, title="Distribution of Weekdays", xlabel="Weekday", ylabel="Count")
+    plot_histogram(df['Month'], bins=np.arange(1, len(months)+2) -0.5, title="Distribution of Months", xlabel="Month", ylabel="Count")
+
     plt.tight_layout
     plt.show()
     print('\nThis took %s seconds.' % (time.time() - start_time))
