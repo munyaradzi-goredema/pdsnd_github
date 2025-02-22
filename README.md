@@ -16,4 +16,9 @@ chicago.csv
 new_york_city.csv
 
 ### Credits
+chatgpt.com - for quick queries on code errors encountered
+https://stackoverflow.com
+https://realpython.com - for the python code 
+https://datascientyst.com - for the python code
+###Credit Note
 It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
