@@ -53,6 +53,8 @@ def load_data(city, month, day):
     print(df.head(n=5).to_string(index=False))
     print('-'*80)
 
+    return df #ensures that a preview is seen, and that the Dataframe is returned
+
 #define a function to calculate and display basic time statistics
 def basic_time_statistics(df):
     print('\nCalculating the most frequent times of travel...\n')
