@@ -17,9 +17,17 @@ weekdays = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'satu
 months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 
 #define a function to get user input
+def get_valid_input(prompt, valid_options):
+    while True:
+        user_input = input(prompt).lower()
+        if user_input in valid_options:
+            return user_input
+        else:
+            print(f"Invalid input, please choose from {valid_options}")
 def user_input():
     print("Hello and welcome! Let's explore some selected US cities bikeshare data together!" )
 
+<<<<<<< HEAD
     while True:
         city  = input('Enter the city from shown list (Chicago, New York City, Washington): ').lower()
         if city in CITY_DATA:
@@ -40,6 +48,12 @@ def user_input():
             break
         else:
             print('Invalid day has been selected. Check the displayed list, and enter a valid day.')
+=======
+    city = get_valid_input('Enter the city (Chicago, New York City, Washington): ', CITY_DATA)
+    month = get_valid_input('Enter a valid month (all, January, February, ..., June): ', months)
+    day = get_valid_input('Enter the day of the week (all, Monday, Tuesday,..., Sunday): ', weekdays)
+
+>>>>>>> refactoring
     print('-'*80)
     return(city, month, day)
 
@@ -62,6 +76,15 @@ def load_data(city, month, day):
     print(df.head(n=5).to_string(index=False))
     print('-'*80)
 
+    return df #ensures that a preview is seen, and that the Dataframe is returned
+
+#define a function to plot histograms
+def plot_histogram(data, bins, title, xlabel, ylabel):
+plt.hist(data, bins=bins, edgecolor='black', alpha=0.7)
+plt.title(title)
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.grid(True)
 #define a function to calculate and display basic time statistics
 def basic_time_statistics(df):
     print('\nCalculating the most frequent times of travel...\n')
@@ -76,29 +99,12 @@ def basic_time_statistics(df):
     print('\n')
     #include histograms of basic statistics
     #Histogram of start times
-    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
-    axes[0].hist(df['Hour'], bins=range(0, 25, 2), edgecolor='black', alpha=0.7)
-    axes[0].set_title("Distribution of Start Times, (24 hr scale)")
-    axes[0].set_xlabel('Hour of Day')
-    axes[0].set_ylabel('Count')
-    axes[0].grid(True)
-    #histogram of weekdays
-    days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    axes[1].hist(df['Day of Week'], bins=np.arange(len(days_order) + 1) - 0.5, edgecolor='black', alpha=0.7)
-    axes[1].set_title('Distribution of weekdays')
-    axes[1].set_xticks(range(len(days_order)))
-    axes[1].set_xticklabels(days_order)
-    axes[1].set_xlabel('Weekday')
-    axes[1].set_ylabel('Count')
-    axes[1].grid(True)
-    #histogram of months
-    axes[2].hist(df['Month'], bins=np.arange(1, len(months)+2) -0.5, edgecolor='black', alpha=0.7)
-    axes[2].set_title('Distribution of Months')
-    axes[2].set_xticks(range(1, len(months)+1))
-    axes[2].set_xticklabels(months[1])
-    axes[2].set_xlabel('Month')
-    axes[2].set_ylabel('Count')
-    axes[2].grid(True)
+
+# Example usage in basic_time_statistics():
+    plot_histogram(df['Hour'], bins=range(0, 25, 2), title="Distribution of Start Times", xlabel="Hour of Day", ylabel="Count")
+    plot_histogram(df['Day of Week'], bins=np.arange(len(days_order) + 1) - 0.5, title="Distribution of Weekdays", xlabel="Weekday", ylabel="Count")
+    plot_histogram(df['Month'], bins=np.arange(1, len(months)+2) -0.5, title="Distribution of Months", xlabel="Month", ylabel="Count")
+
     plt.tight_layout
     plt.show()
     print('\nThis took %s seconds.' % (time.time() - start_time))
@@ -211,7 +217,11 @@ def main():
 
           show_raw_data(df)
 
+<<<<<<< HEAD
           restart = input('\nWould you like to restart with a different selection? Enter yes or no. \nKindly note any other apart from the prescribed answers will default to no! \nThe answer required is case sensitive\n')
+=======
+          restart = input('\nWould you like to restart with a different selection? Enter yes or no. \nKindly note any other answer will default to no!\n')
+>>>>>>> refactoring
 
           if restart.lower() !=  'yes':
               break
